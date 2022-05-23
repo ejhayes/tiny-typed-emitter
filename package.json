@@ -1,14 +1,14 @@
 {
-  "name": "tiny-typed-emitter",
-  "version": "2.1.0",
-  "description": "Fully type-checked EventEmitter",
+  "name": "tiny-typed-emitter2",
+  "version": "1.0.0",
+  "description": "Fully type-checked EventEmitter2",
   "main": "lib/index",
-  "repository": "https://github.com/binier/tiny-typed-emitter.git",
-  "author": "Zurab Benashvili <zura.benashvili@gmail.com>",
+  "repository": "https://github.com/ejhayes/tiny-typed-emitter2.git",
+  "author": "Eric Hayes <eric@deployfx.com>",
   "license": "MIT",
   "keywords": [
-    "tiny-typed-emitter",
-    "typed-event-emitter",
+    "tiny-typed-emitter2",
+    "typed-event-emitter2",
     "typescript",
     "typescript-library",
     "typescript-boilerplate",
@@ -18,8 +18,7 @@
     "events",
     "event-emitter",
     "event-emitters",
-    "eventemitter",
-    "eventemitter3",
+    "eventemitter2",
     "definitelytyped",
     "typings",
     "definitely-typed"
@@ -33,5 +32,8 @@
   "devDependencies": {
     "@types/node": "^13.13.4",
     "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "eventemitter2": "^6.4.5"
   }
 }

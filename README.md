@@ -1,25 +1,27 @@
-# tiny-typed-emitter
+# tiny-typed-eventemitter2
+
+This is a fork of [`tiny-typed-emitter`](https://github.com/binier/tiny-typed-emitter) for [`EventEmitter2`](https://github.com/EventEmitter2/EventEmitter2).
 
 Have your events and their listeners type-checked with [no overhead](#no-overhead).
 
-[![npm version](https://badge.fury.io/js/tiny-typed-emitter.svg)](https://badge.fury.io/js/tiny-typed-emitter)
+[![npm version](https://badge.fury.io/js/tiny-typed-emitter2.svg)](https://badge.fury.io/js/tiny-typed-emitter2)
 
 ## Install
   Simply add the dependency using **npm**:
 ```console
-$ npm i tiny-typed-emitter
+$ npm i tiny-typed-emitter2
 ```
   or using **yarn**:
 ```console
-$ yarn add tiny-typed-emitter
+$ yarn add tiny-typed-emitter2
 ```
 
 ## Usage
 
-1. import **tiny-typed-emitter** library:
+1. import **tiny-typed-emitter2** library:
 
   ```ts
-  import { TypedEmitter } from 'tiny-typed-emitter';
+  import { TypedEmitter } from 'tiny-typed-emitter2';
   ```
 
 2. define events and their listener signatures (**note:** quotes around event names are not mandatory):
@@ -79,7 +81,45 @@ class Bird<E extends ListenerSignature<E>> extends Animal<{fly: () => void} & E>
 const animals: Animal[] = [new Frog(), new Bird()];
 ```
 
+## Compatible with NestJS
+This library is compatible with [`@nestjs/event-emitter`](https://github.com/nestjs/event-emitter) which uses [`EventEmitter2`](https://github.com/EventEmitter2/EventEmitter2) under the hood. To use follow the instructions from:
+
+https://docs.nestjs.com/techniques/events
+
+With the following changes:
+
+1. Use the more specific event type instead of `EventEmitter2`. For example:
+
+```
+constructor(private eventEmitter: EventEmitter2) {}
+```
+
+becomes:
+
+```
+constructor(private eventEmitter: TypedEmitter<MyEvents>) {}
+```
+
+2. Don't use the `@OnEvent` method decorator
+
+Instead of doing this:
+
+```
+@OnEvent('some.event')
+myHandler(event: MyCustomEventType) {}
+```
+
+You'll need to do this:
+
+```
+constructor(events: TypedEmitter<MyEvents>) {
+  events.on('some.event', (event) => {
+    // correct event type will automatically be available
+  });
+}
+```
+
 ## No Overhead
-Library adds no overhead. All it does is it simply reexports renamed `EventEmitter`
+Library adds no overhead. All it does is it simply reexports renamed `EventEmitter2`
 with customized typings.
 You can check **lib/index.js** to see the exported code.
